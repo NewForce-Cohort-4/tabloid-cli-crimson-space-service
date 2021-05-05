@@ -37,9 +37,9 @@ namespace TabloidCLI.UserInterfaceManagers
             string choice = Console.ReadLine();
             switch (choice)
             {
-                //case "1":
-                //    List();
-                //    return this;
+                case "1":
+                    List();
+                    return this;
                 //case "2":
                 //    Post post = Choose();
                 //    if (post == null)
@@ -72,7 +72,7 @@ namespace TabloidCLI.UserInterfaceManagers
             List<Post> posts = _postRepository.GetAll();
             foreach (Post post in posts)
             {
-                Console.WriteLine(post);
+                Console.WriteLine($"{post.Title} - {post.Url}");
             }
         }
 
@@ -80,7 +80,7 @@ namespace TabloidCLI.UserInterfaceManagers
         {
             if (prompt == null)
             {
-                prompt = "Please choose a Post:";
+                prompt = "Please choose a Post: ";
             }
 
             Console.WriteLine(prompt);
