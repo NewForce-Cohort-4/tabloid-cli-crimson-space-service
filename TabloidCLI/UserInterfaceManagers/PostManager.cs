@@ -56,9 +56,9 @@ namespace TabloidCLI.UserInterfaceManagers
                 //case "4":
                 //    Edit();
                 //    return this;
-                //case "5":
-                //    Remove();
-                //    return this;
+                case "5":
+                    Remove();
+                    return this;
                 case "0":
                     return _parentUI;
                 default:
@@ -132,7 +132,7 @@ namespace TabloidCLI.UserInterfaceManagers
             };
                 
                 
-                //_blogManager.Choose("Blog: ");
+                //post.Blog = _blogManager.Choose("Blog: ");
 
             _postRepository.Insert(post);
         }
@@ -167,14 +167,14 @@ namespace TabloidCLI.UserInterfaceManagers
 
         //    _authorRepository.Update(authorToEdit);
         //}
-        //private void Remove()
-        //{
-        //    Post postToDelete = Choose("Which post would you like to remove?");
-        //    if (postToDelete != null)
-        //    {
-        //        _postRepository.Delete(postToDelete.Id);
-        //    }
-        //}
+        private void Remove()
+        {
+            Post postToDelete = Choose("Which post would you like to remove?");
+            if (postToDelete != null)
+            {
+                _postRepository.Delete(postToDelete.Id);
+            }
+        }
     }
 }
 
