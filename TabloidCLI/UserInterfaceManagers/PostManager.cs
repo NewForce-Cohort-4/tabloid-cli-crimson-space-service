@@ -41,6 +41,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     List();
                     return this;
                 case "2":
+                    Console.WriteLine();
                     Post post = Choose();
                     if (post == null)
                     {

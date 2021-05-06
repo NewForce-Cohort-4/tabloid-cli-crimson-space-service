@@ -25,6 +25,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            Console.WriteLine();
             Post post = _postRepository.Get(_postId);
             Console.WriteLine($"{post.Title} Details");
             Console.WriteLine(" 1) View");
@@ -60,6 +61,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private void View()
         {
             Post post = _postRepository.Get(_postId);
+            Console.WriteLine();
             Console.WriteLine($"Title: {post.Title}");
             Console.WriteLine($"URL: {post.Url}");
             Console.WriteLine($"Published Date: {post.PublishDateTime}");
