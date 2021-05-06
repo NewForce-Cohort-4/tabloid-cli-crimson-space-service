@@ -98,7 +98,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         //private void RemoveTag()
         //{
-        //    Author author = _authorRepository.Get(_authorId);
+        //    Tag author = _tagRepository.Get(_tagId);
 
         //    Console.WriteLine($"Which tag would you like to remove from {author.FullName}?");
         //    List<Tag> tags = author.Tags;
