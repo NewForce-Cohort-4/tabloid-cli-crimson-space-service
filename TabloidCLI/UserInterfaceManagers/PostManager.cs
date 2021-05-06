@@ -10,7 +10,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private readonly IUserInterfaceManager _parentUI;
         private PostRepository _postRepository;
         private AuthorManager _authorManager;
-        //private BlogManager _blogManager;
+        private BlogManager _blogManager;
         private string _connectionString;
 
         public PostManager(IUserInterfaceManager parentUI, string connectionString)
@@ -18,7 +18,7 @@ namespace TabloidCLI.UserInterfaceManagers
             _parentUI = parentUI;
             _postRepository = new PostRepository(connectionString);
             _authorManager = new AuthorManager(parentUI, connectionString);
-            //_blogManager = new BlogManager(parentUI, connectionString);
+            _blogManager = new BlogManager(parentUI, connectionString);
             _connectionString = connectionString;
         }
 
@@ -123,16 +123,16 @@ namespace TabloidCLI.UserInterfaceManagers
 
             post.Author = _authorManager.Choose("Author: ");
 
-            post.Blog = new Blog()
-            {
-                Id = 1,
-                Title = "Google",
-                Url = "www.google.com",
-                Tags = new List<Tag>()
-            };
-                
-                
-                //post.Blog = _blogManager.Choose("Blog: ");
+            //post.Blog = new Blog()
+            //{
+            //    Id = 1,
+            //    Title = "Google",
+            //    Url = "www.google.com",
+            //    Tags = new List<Tag>()
+            //};
+
+
+            post.Blog = _blogManager.Choose("Blog: ");
 
             _postRepository.Insert(post);
         }
@@ -181,14 +181,14 @@ namespace TabloidCLI.UserInterfaceManagers
             string answerBlog = Console.ReadLine();
             if (answerBlog == "y")
             {
-                //Blog newBlog = _blogManager.Choose("Blog: ");
-                Blog newBlog = new Blog()
-                                {
-                                    Id = 1,
-                                    Title = "Google",
-                                    Url = "www.google.com",
-                                    Tags = new List<Tag>()
-                                };
+                Blog newBlog = _blogManager.Choose("Blog: ");
+                //Blog newBlog = new Blog()
+                //                {
+                //                    Id = 1,
+                //                    Title = "Google",
+                //                    Url = "www.google.com",
+                //                    Tags = new List<Tag>()
+                //                };
                 postToEdit.Blog = newBlog;
                 changes++;
             }
