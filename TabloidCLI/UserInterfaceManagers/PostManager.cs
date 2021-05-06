@@ -139,7 +139,9 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Edit()
         {
+            Console.WriteLine();
             Post postToEdit = Choose("Which post would you like to edit?");
+            int changes = 0;
             if (postToEdit == null)
             {
                 return;
@@ -151,33 +153,49 @@ namespace TabloidCLI.UserInterfaceManagers
             if (!string.IsNullOrWhiteSpace(title))
             {
                 postToEdit.Title = title;
+                changes++;
             }
             Console.Write("New URL (blank to leave unchanged: ");
             string url = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(url))
             {
                 postToEdit.Url = url;
+                changes++;
             }
             Console.Write("New Publish Date (blank to leave unchanged: ");
             string publishDate = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(publishDate))
             {
                 postToEdit.PublishDateTime = DateTime.Parse(publishDate);
+                changes++;
             }
-            Console.Write("New Author (blank to leave unchanged: ");
-            string publishDate = _authorManager.Choose("Author: ");
-            if (!string.IsNullOrWhiteSpace(publishDate))
+            Console.Write("Select New Author? (y/n): ");
+            string answerAuthor = Console.ReadLine();
+            if (answerAuthor == "y")
             {
-                postToEdit.PublishDateTime = DateTime.Parse(publishDate);
+                Author newAuthor = _authorManager.Choose("Author: ");
+                postToEdit.Author = newAuthor;
+                changes++;
             }
-            Console.Write("New Publish Date (blank to leave unchanged: ");
-            string publishDate = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(publishDate))
+            Console.Write("Select New Blog? (y/n): ");
+            string answerBlog = Console.ReadLine();
+            if (answerBlog == "y")
             {
-                postToEdit.PublishDateTime = DateTime.Parse(publishDate);
+                //Blog newBlog = _blogManager.Choose("Blog: ");
+                Blog newBlog = new Blog()
+                                {
+                                    Id = 1,
+                                    Title = "Google",
+                                    Url = "www.google.com",
+                                    Tags = new List<Tag>()
+                                };
+                postToEdit.Blog = newBlog;
+                changes++;
             }
-
-            _postRepository.Update(postToEdit);
+            if (changes > 0)
+            {
+                _postRepository.Update(postToEdit);
+            }
         }
 
         private void Remove()
