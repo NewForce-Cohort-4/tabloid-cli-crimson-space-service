@@ -28,9 +28,9 @@ namespace TabloidCLI.UserInterfaceManagers
             Post post = _postRepository.Get(_postId);
             Console.WriteLine($"{post.Title} Details");
             Console.WriteLine(" 1) View");
-            Console.WriteLine(" 2) View Blog Posts");
-            Console.WriteLine(" 3) Add Tag");
-            Console.WriteLine(" 4) Remove Tag");
+            Console.WriteLine(" 2) Add Tag");
+            Console.WriteLine(" 3) Remove Tag");
+            Console.WriteLine(" 4) Note Management");
             Console.WriteLine(" 0) Go Back");
 
             Console.Write("> ");
@@ -60,13 +60,10 @@ namespace TabloidCLI.UserInterfaceManagers
         private void View()
         {
             Post post = _postRepository.Get(_postId);
-            //Console.WriteLine($"Name: {author.FullName}");
-            //Console.WriteLine($"Bio: {author.Bio}");
-            //Console.WriteLine("Tags:");
-            //foreach (Tag tag in author.Tags)
-            //{
-            //    Console.WriteLine(" " + tag);
-            //}
+            Console.WriteLine($"Title: {post.Title}");
+            Console.WriteLine($"URL: {post.Url}");
+            Console.WriteLine($"Published Date: {post.PublishDateTime}");
+            
             Console.WriteLine();
         }
 
