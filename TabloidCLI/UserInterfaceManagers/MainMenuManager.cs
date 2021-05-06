@@ -6,7 +6,7 @@ namespace TabloidCLI.UserInterfaceManagers
     {
         private const string CONNECTION_STRING = 
             //change to Express02 for Matt's local machine
-            @"Data Source=localhost\SQLEXPRESS02;Database=TabloidCLI;Integrated Security=True";
+            @"Data Source=localhost\SQLEXPRESS;Database=TabloidCLI;Integrated Security=True";
 
         public IUserInterfaceManager Execute()
         {
