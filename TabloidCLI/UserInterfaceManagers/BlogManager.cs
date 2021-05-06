@@ -59,7 +59,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine(blog);
             }
         }
-        private Blog Choose(string prompt = null)
+        public Blog Choose(string prompt = null)
         {
             if (prompt == null)
             {
