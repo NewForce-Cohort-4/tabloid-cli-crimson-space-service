@@ -71,7 +71,46 @@ namespace TabloidCLI
         }
         public Blog Get(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT Id, Title, URL
+                                       FROM Blog";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    Blog blog = null;
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        if (blog == null)
+                        {
+                            blog = new Blog()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Title = reader.GetString(reader.GetOrdinal("Title")),
+                                Url = reader.GetString(reader.GetOrdinal("URL")),
+                            };
+                        }
+
+                        /*if (!reader.IsDBNull(reader.GetOrdinal("TagId")))
+                        {
+                            author.Tags.Add(new Tag()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("TagId")),
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                            });
+                        }*/
+                    }
+
+                    reader.Close();
+
+                    return blog;
+                }
+            }
         }
         public void Update(Blog blog)
         {
