@@ -42,7 +42,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     View();
                     return this;
                 case "2":
-                    //AddTag();
+                    AddTag();
                     return this;
                 case "3":
                     //RemoveTag();
@@ -65,29 +65,19 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine($"Title: {post.Title}");
             Console.WriteLine($"URL: {post.Url}");
             Console.WriteLine($"Published Date: {post.PublishDateTime}");
-            
+            foreach (Tag tag in post.Tags)
+            {
+                Console.WriteLine(" " + tag);
+            }
             Console.WriteLine();
         }
 
-<<<<<<< HEAD
-        //private void ViewBlogPosts()
-        //{
-        //    List<Post> posts = _postRepository.GetByAuthor(_authorId);
-        //    foreach (Post post in posts)
-        //    {
-        //        Console.WriteLine(post);
-        //    }
-        //    Console.WriteLine();
-        //}
+
 
         private void AddTag()
         {
             Post post = _postRepository.Get(_postId);
-=======
-        //private void AddTag()
-        //{
-        //    Author author = _authorRepository.Get(_authorId);
->>>>>>> main
+      
 
             Console.WriteLine($"Which tag would you like to add to {post.Title}?");
             List<Tag> tags = _tagRepository.GetAll();
@@ -112,31 +102,6 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        //private void RemoveTag()
-        //{
-        //    Author author = _authorRepository.Get(_authorId);
-
-        //    Console.WriteLine($"Which tag would you like to remove from {author.FullName}?");
-        //    List<Tag> tags = author.Tags;
-
-        //    for (int i = 0; i < tags.Count; i++)
-        //    {
-        //        Tag tag = tags[i];
-        //        Console.WriteLine($" {i + 1}) {tag.Name}");
-        //    }
-        //    Console.Write("> ");
-
-        //    string input = Console.ReadLine();
-        //    try
-        //    {
-        //        int choice = int.Parse(input);
-        //        Tag tag = tags[choice - 1];
-        //        _authorRepository.DeleteTag(author.Id, tag.Id);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Invalid Selection. Won't remove any tags.");
-        //    }
-        //}
+       
     }
 }
