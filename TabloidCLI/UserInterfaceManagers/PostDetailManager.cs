@@ -80,32 +80,32 @@ namespace TabloidCLI.UserInterfaceManagers
         //    Console.WriteLine();
         //}
 
-        //private void AddTag()
-        //{
-        //    Author author = _authorRepository.Get(_authorId);
+        private void AddTag()
+        {
+            Post post = _postRepository.Get(_postId);
 
-        //    Console.WriteLine($"Which tag would you like to add to {author.FullName}?");
-        //    List<Tag> tags = _tagRepository.GetAll();
+            Console.WriteLine($"Which tag would you like to add to {post.Title}?");
+            List<Tag> tags = _tagRepository.GetAll();
 
-        //    for (int i = 0; i < tags.Count; i++)
-        //    {
-        //        Tag tag = tags[i];
-        //        Console.WriteLine($" {i + 1}) {tag.Name}");
-        //    }
-        //    Console.Write("> ");
+            for (int i = 0; i < tags.Count; i++)
+            {
+                Tag tag = tags[i];
+                Console.WriteLine($" {i + 1}) {tag.Name}");
+            }
+            Console.Write("> ");
 
-        //    string input = Console.ReadLine();
-        //    try
-        //    {
-        //        int choice = int.Parse(input);
-        //        Tag tag = tags[choice - 1];
-        //        _authorRepository.InsertTag(author, tag);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Invalid Selection. Won't add any tags.");
-        //    }
-        //}
+            string input = Console.ReadLine();
+            try
+            {
+                int choice = int.Parse(input);
+                Tag tag = tags[choice - 1];
+                _postRepository.InsertTag(post, tag);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Invalid Selection. Won't add any tags.");
+            }
+        }
 
         //private void RemoveTag()
         //{
