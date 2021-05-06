@@ -120,7 +120,9 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Edit()
         {
+            Console.WriteLine();
             Author authorToEdit = Choose("Which author would you like to edit?");
+            int changes = 0;
             if (authorToEdit == null)
             {
                 return;
@@ -132,21 +134,26 @@ namespace TabloidCLI.UserInterfaceManagers
             if (!string.IsNullOrWhiteSpace(firstName))
             {
                 authorToEdit.FirstName = firstName;
+                changes++;
             }
             Console.Write("New last name (blank to leave unchanged: ");
             string lastName = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(lastName))
             {
                 authorToEdit.LastName = lastName;
+                changes++;
             }
             Console.Write("New bio (blank to leave unchanged: ");
             string bio = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(bio))
             {
                 authorToEdit.Bio = bio;
+                changes++;
             }
-
-            _authorRepository.Update(authorToEdit);
+            if (changes > 0)
+            {
+                _authorRepository.Update(authorToEdit);
+            }
         }
 
         private void Remove()
