@@ -5,7 +5,8 @@ namespace TabloidCLI.UserInterfaceManagers
     public class MainMenuManager : IUserInterfaceManager
     {
         private const string CONNECTION_STRING = 
-            @"Data Source=localhost\SQLEXPRESS;Database=TabloidCLI;Integrated Security=True";
+            //change to Express02 for Matt's local machine
+            @"Data Source=localhost\SQLEXPRESS02;Database=TabloidCLI;Integrated Security=True";
 
         public IUserInterfaceManager Execute()
         {
@@ -24,7 +25,7 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1": throw new NotImplementedException();
-                case "2": throw new NotImplementedException();
+                case "2": return new BlogManager(this, CONNECTION_STRING);
                 case "3": return new AuthorManager(this, CONNECTION_STRING);
                 case "4": throw new NotImplementedException();
                 case "5": return new TagManager(this, CONNECTION_STRING);
