@@ -9,6 +9,32 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            Console.WriteLine("Taste the rainbow and choose a background color. Enter a number");
+            Console.WriteLine(" 1) Black");
+            Console.WriteLine(" 2) Red");
+            Console.WriteLine(" 3) Blue");
+            Console.WriteLine(" 4) Green");
+
+            Console.Write("> ");
+            string color = Console.ReadLine();
+
+            if (color == "1")
+            {
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.Clear();
+            }
+
+            else if (color == "2")
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.Clear();
+            }
+
+
+
+
+
+
             Console.WriteLine();
             Console.WriteLine("Welcome to Earth! We are glad to have you here.");
             Console.WriteLine("Main Menu");

@@ -7,9 +7,8 @@ namespace TabloidCLI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Taste the rainbow and choose a background color."); 
 
-           
+
             // MainMenuManager implements the IUserInterfaceManager interface
             IUserInterfaceManager ui = new MainMenuManager();
             while (ui != null)
