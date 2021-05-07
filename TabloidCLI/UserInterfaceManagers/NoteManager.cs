@@ -9,12 +9,14 @@ namespace TabloidCLI.UserInterfaceManagers
         private readonly IUserInterfaceManager _parentUI;
         private NoteRepository _noteRepository;
         private string _connectionString;
+        private int _postId;
 
-        public NoteManager(IUserInterfaceManager parentUI, string connectionString)
+        public NoteManager(IUserInterfaceManager parentUI, string connectionString, int postId)
         {
             _parentUI = parentUI;
             _noteRepository = new NoteRepository(connectionString);
             _connectionString = connectionString;
+            _postId = postId;
         }
 
         public IUserInterfaceManager Execute()
@@ -23,7 +25,6 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 1) List Notes");
             Console.WriteLine(" 2) Add Note");
             Console.WriteLine(" 3) Remove Note");
-        
             Console.WriteLine(" 0) Go Back");
 
             Console.Write("> ");
@@ -36,7 +37,6 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "2":
                     Add();
                     return this;
-                
                 case "3":
                     Remove();
                     return this;
@@ -99,8 +99,12 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Content: ");
             note.Content = Console.ReadLine();
 
-            Console.Write("CreateDateTime: ");
-            note.CreateDateTime = Convert.ToDateTime(Console.ReadLine());
+            note.CreateDateTime = DateTime.Now;
+
+            note.Post = new Post()
+            {
+
+            };
 
             _noteRepository.Insert(note);
         }
