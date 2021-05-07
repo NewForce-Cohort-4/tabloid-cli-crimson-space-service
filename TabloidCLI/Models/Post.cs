@@ -14,5 +14,10 @@ namespace TabloidCLI.Models
         public Blog Blog { get; set; }
 
         public List<Tag> Tags { get; set; } = new List<Tag>();
+
+        public override string ToString()
+        {
+            return Title;
+        }
     }
 }

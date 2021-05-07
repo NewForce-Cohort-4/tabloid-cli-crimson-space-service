@@ -7,12 +7,14 @@ namespace TabloidCLI.UserInterfaceManagers
 {
     public class PostManager : IUserInterfaceManager
     {
+        // Properties of the PostManager Class
         private readonly IUserInterfaceManager _parentUI;
         private PostRepository _postRepository;
         private AuthorManager _authorManager;
         private BlogManager _blogManager;
         private string _connectionString;
 
+        // Define a PostManager Constructor method to build an instance of the PostManager Type
         public PostManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
@@ -24,6 +26,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            // Display a Post Manager Menu to the Console
             Console.WriteLine();
             Console.WriteLine("Post Menu");
             Console.WriteLine(" 1) List Posts");
@@ -33,6 +36,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 5) Remove Post");
             Console.WriteLine(" 0) Go Back");
 
+            // Use a switch to manage user selection from the above Post Manager Menu
             Console.Write("> ");
             string choice = Console.ReadLine();
             switch (choice)
@@ -68,6 +72,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
+        // Define a List method which prints each Post Object in the database to the Console
         private void List()
         {
             List<Post> posts = _postRepository.GetAll();
@@ -77,6 +82,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
+        // Define a Choose method which is used to engage the user in selecting a Post from the List of Posts in the database.
         private Post Choose(string prompt = null)
         {
             if (prompt == null)
@@ -108,6 +114,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
+        // Define an Add method to engage the user in adding a Post Object to the database
         private void Add()
         {
             Console.WriteLine("New Post");
@@ -122,22 +129,16 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Published Date (e.g. 1/12/2014): ");
             post.PublishDateTime = DateTime.Parse(Console.ReadLine());
 
+            // Use the Choose() method that is predefined in the AuthorManager
             post.Author = _authorManager.Choose("Author: ");
 
-            //post.Blog = new Blog()
-            //{
-            //    Id = 1,
-            //    Title = "Google",
-            //    Url = "www.google.com",
-            //    Tags = new List<Tag>()
-            //};
-
-
+            // Use the Choose() method that is predefined in the BlogManager
             post.Blog = _blogManager.Choose("Blog: ");
 
             _postRepository.Insert(post);
         }
 
+        // Define an Edit method to engage the user in editing a Post Object in the database
         private void Edit()
         {
             Console.WriteLine();
@@ -156,6 +157,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 postToEdit.Title = title;
                 changes++;
             }
+
             Console.Write("New URL (blank to leave unchanged: ");
             string url = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(url))
@@ -163,6 +165,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 postToEdit.Url = url;
                 changes++;
             }
+
             Console.Write("New Publish Date (blank to leave unchanged: ");
             string publishDate = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(publishDate))
@@ -170,6 +173,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 postToEdit.PublishDateTime = DateTime.Parse(publishDate);
                 changes++;
             }
+
             Console.Write("Select New Author? (y/n): ");
             string answerAuthor = Console.ReadLine();
             if (answerAuthor == "y")
@@ -178,27 +182,26 @@ namespace TabloidCLI.UserInterfaceManagers
                 postToEdit.Author = newAuthor;
                 changes++;
             }
+
             Console.Write("Select New Blog? (y/n): ");
             string answerBlog = Console.ReadLine();
             if (answerBlog == "y")
             {
                 Blog newBlog = _blogManager.Choose("Blog: ");
-                //Blog newBlog = new Blog()
-                //                {
-                //                    Id = 1,
-                //                    Title = "Google",
-                //                    Url = "www.google.com",
-                //                    Tags = new List<Tag>()
-                //                };
+
                 postToEdit.Blog = newBlog;
                 changes++;
             }
+
+            // Check to see if any changes have been made to the Object. If changes have been made, send to the database. if not, do nothing 
+            // (don't open communication with the database if not necessary)
             if (changes > 0)
             {
                 _postRepository.Update(postToEdit);
             }
         }
 
+        // Define a Remove method to allow the user to select a Post Object to be removed from the database
         private void Remove()
         {
             Post postToDelete = Choose("Which post would you like to remove?");

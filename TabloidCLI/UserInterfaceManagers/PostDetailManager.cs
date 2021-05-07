@@ -8,12 +8,14 @@ namespace TabloidCLI.UserInterfaceManagers
 {
     internal class PostDetailManager : IUserInterfaceManager
     {
+        // Properties of the PostDetailManager Class
         private IUserInterfaceManager _parentUI;
         private AuthorRepository _authorRepository;
         private PostRepository _postRepository;
         private TagRepository _tagRepository;
         private int _postId;
 
+        // PostDetailManager Constructor method
         public PostDetailManager(IUserInterfaceManager parentUI, string connectionString, int postId)
         {
             _parentUI = parentUI;
@@ -72,8 +74,6 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine();
         }
 
-
-
         private void AddTag()
         {
             Post post = _postRepository.Get(_postId);
@@ -84,7 +84,7 @@ namespace TabloidCLI.UserInterfaceManagers
             for (int i = 0; i < tags.Count; i++)
             {
                 Tag tag = tags[i];
-                Console.WriteLine($" {i + 1}) {tag.Name}");
+                Console.WriteLine($" {i + 1}) "+ tag);
             }
             Console.Write("> ");
 
