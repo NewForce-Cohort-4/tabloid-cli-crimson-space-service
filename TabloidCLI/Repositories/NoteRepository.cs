@@ -44,27 +44,14 @@ namespace TabloidCLI
             }
         }
 
-        public Author Get(int id)
+        public Note Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Insert(Author author)
+        public void Insert(Note note)
         {
-            using (SqlConnection conn = Connection)
-            {
-                conn.Open();
-                using (SqlCommand cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"INSERT INTO Author (FirstName, LastName, Bio )
-                                                     VALUES (@firstName, @lastName, @bio)";
-                    cmd.Parameters.AddWithValue("@firstName", author.FirstName);
-                    cmd.Parameters.AddWithValue("@lastName", author.LastName);
-                    cmd.Parameters.AddWithValue("@bio", author.Bio);
-
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            throw new NotImplementedException();
         }
 
         public void Update(Note note)
