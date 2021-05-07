@@ -42,9 +42,9 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "2":
                     AddTag();
                     return this;
-                /*  case "3":
-                      RemoveTag();
-                      return this;*/
+                case "3":
+                    RemoveTag();
+                    return this;
                 /*case "4":
                     ViewBlogPosts();
                     return this;*/
@@ -94,32 +94,32 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine("Invalid Selection. Won't add any tags.");
             }
         }
-        /*        private void RemoveTag()
-                    {
-                    Blog blog = _blogRepository.Get(_blogId);
+        private void RemoveTag()
+        {
+            Blog blog = _blogRepository.Get(_blogId);
 
-                    Console.WriteLine($"Which tag would you like to remove from {blog.Title}?");
-                    List<Tag> tags = blog.Tags;
+            Console.WriteLine($"Which tag would you like to remove from {blog.Title}?");
+            List<Tag> tags = blog.Tags;
 
-                    for (int i = 0; i < tags.Count; i++)
-                    {
-                        Tag tag = tags[i];
-                        Console.WriteLine($" {i + 1}) {tag.Name}");
-                    }
-                    Console.Write("> ");
+            for (int i = 0; i < tags.Count; i++)
+            {
+                Tag tag = tags[i];
+                Console.WriteLine($" {i + 1}) {tag.Name}");
+            }
+            Console.Write("> ");
 
-                    string input = Console.ReadLine();
-                    try
-                    {
-                        int choice = int.Parse(input);
-                        Tag tag = tags[choice - 1];
-                        _blogRepository.DeleteTag(blog.Id, tag.Id);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Invalid Selection. Won't remove any tags.");
-                    }
-                    }
-        */
+            string input = Console.ReadLine();
+            try
+            {
+                int choice = int.Parse(input);
+                Tag tag = tags[choice - 1];
+                _blogRepository.DeleteTag(blog.Id, tag.Id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Invalid Selection. Won't remove any tags.");
+            }
+        }
+
     }
 }
