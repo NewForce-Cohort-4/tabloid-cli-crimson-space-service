@@ -88,6 +88,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
+        //creating my object to insert into the database through the noterepository
         private void Add()
         {
             Console.WriteLine("New Note");
@@ -101,6 +102,12 @@ namespace TabloidCLI.UserInterfaceManagers
 
             Console.Write("CreateDateTime: ");
             note.CreateDateTime = Convert.ToDateTime(Console.ReadLine());
+
+            Console.Write("Choose Post: ");
+            Post addingNoteToThisPost = new Post();
+
+            note.Post = addingNoteToThisPost;
+
 
             _noteRepository.Insert(note);
         }

@@ -18,7 +18,7 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT n.Id as noteId, n.Title, n.Content, n.CreateDateTime, p.Id as postId, p.Title, p.URL, p.PublishDateTime, p.AuthorId, p.BlogId FROM Note n
+                    cmd.CommandText = @"SELECT n.Id as noteId, n.Title, n.Content, n.CreateDateTime, p.Id as postId, p.Title as postTitle, p.URL, p.PublishDateTime, p.AuthorId, p.BlogId FROM Note n
                        Left JOIN Post p on n.PostId = p.Id";
 
                     List<Note> notes = new List<Note>();
@@ -35,7 +35,7 @@ namespace TabloidCLI
                             Post = new Post()
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("postId")),
-                                Title = reader.GetString(reader.GetOrdinal("Title")),
+                                Title = reader.GetString(reader.GetOrdinal("postTitle")),
                                 Url = reader.GetString(reader.GetOrdinal("URL")),
                                 PublishDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
 
@@ -75,13 +75,26 @@ namespace TabloidCLI
 
         public void Insert(Note note)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Note (Title, Content, CreateDateTime, postId)
+                                                     VALUES (@title, @content, @createDateTime, @postId)";
+                    cmd.Parameters.AddWithValue("@title", note.Title);
+                    cmd.Parameters.AddWithValue("@content", note.Content);
+                    cmd.Parameters.AddWithValue("@createDateTime", note.CreateDateTime);
+                    cmd.Parameters.AddWithValue("@postId", note.Post.Id);
+                    
+                    int id = (int)cmd.ExecuteScalar();
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
-        public void Update(Note note)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public void Delete(int id)
         {
@@ -90,7 +103,7 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE FROM NOte WHERE id = @id";
+                    cmd.CommandText = @"DELETE FROM Note WHERE id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
 
                     cmd.ExecuteNonQuery();
