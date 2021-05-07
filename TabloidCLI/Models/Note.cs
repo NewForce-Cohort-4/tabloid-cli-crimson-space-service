@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TabloidCLI.Models
 {
-    class Note
+    public class Note
     {
         public int Id { get; set; }
         public string Title { get; set; }

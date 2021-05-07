@@ -18,8 +18,8 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT n.Id as noteId, n.Title, n.Content, n.CreateDateTime, p.Id as                    postId FROM Note n
-                                       Left JOIN Post p on n.PostId = p.Id";
+                    cmd.CommandText = @"SELECT n.Id as noteId, n.Title, n.Content, n.CreateDateTime, p.Id as postId, p.Title, p.URL, p.PublishDateTime, p.AuthorId, p.BlogId FROM Note n
+                       Left JOIN Post p on n.PostId = p.Id";
 
                     List<Note> notes = new List<Note>();
 
@@ -32,10 +32,34 @@ namespace TabloidCLI
                             Title = reader.GetString(reader.GetOrdinal("Title")),
                             Content = reader.GetString(reader.GetOrdinal("Content")),
                             CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
-                            Id = reader.GetInt32(reader.GetOrdinal("postId")),
+                            Post = new Post()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("postId")),
+                                Title = reader.GetString(reader.GetOrdinal("Title")),
+                                Url = reader.GetString(reader.GetOrdinal("URL")),
+                                PublishDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+
+                                Author = new Author()
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                    FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                    LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                    Bio = reader.GetString(reader.GetOrdinal("Bio")),
+                                },
+                                Blog = new Blog()
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                    Title = reader.GetString(reader.GetOrdinal("Title")),
+                                    Url = reader.GetString(reader.GetOrdinal("URL")),
+                                }
+                            }
                         };
+
                         notes.Add(note);
-                    }
+
+                    };
+                        
+                    
 
                     reader.Close();
 
