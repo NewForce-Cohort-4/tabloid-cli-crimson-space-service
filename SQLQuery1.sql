@@ -1,3 +1,3 @@
-﻿SELECT * FROM Post
+﻿SELECT * FROM PostTag
 
 
