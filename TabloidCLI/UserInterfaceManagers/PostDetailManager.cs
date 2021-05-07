@@ -78,15 +78,8 @@ namespace TabloidCLI.UserInterfaceManagers
         {
             Post post = _postRepository.Get(_postId);
       
-
-<<<<<<< HEAD
             Console.WriteLine($"Which tag would you like to add to {post.Title}?");
             List<Tag> tags = _tagRepository.GetAll();
-=======
-        //private void RemoveTag()
-        //{
-        //    Tag author = _tagRepository.Get(_tagId);
->>>>>>> main
 
             for (int i = 0; i < tags.Count; i++)
             {
