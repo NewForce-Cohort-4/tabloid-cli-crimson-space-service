@@ -26,22 +26,35 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("> ");
             string tagName;
             string choice = Console.ReadLine();
+            bool resultsFound = true;
             switch (choice)
             {
                 case "1":
                     Console.Write("Tag > ");
                     tagName = Console.ReadLine();
-                    SearchAuthors(tagName);
+                    resultsFound = SearchAuthors(tagName);
+                    if (resultsFound == false)
+                    {
+                        Console.WriteLine($"No results for {tagName}");
+                    }
                     return this;
                 case "2":
                     Console.Write("Tag > ");
                     tagName = Console.ReadLine();
-                    SearchBlogs(tagName);
+                    resultsFound = SearchBlogs(tagName);
+                    if (resultsFound == false)
+                    {
+                        Console.WriteLine($"No results for {tagName}");
+                    }
                     return this;
                 case "3":
                     Console.Write("Tag > ");
                     tagName = Console.ReadLine();
-                    SearchPosts(tagName);
+                    resultsFound = SearchPosts(tagName);
+                    if (resultsFound == false)
+                    {
+                        Console.WriteLine($"No results for {tagName}");
+                    }
                     return this;
                 case "4":
                     Console.Write("Tag > ");
@@ -56,56 +69,69 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        private void SearchAuthors(string tagName)
+        private bool SearchAuthors(string tagName)
         {
             SearchResults<Author> results = _tagRepository.SearchAuthors(tagName);
 
             if (results.NoResultsFound)
             {
-                Console.WriteLine($"No results for {tagName}");
+                
+                return false;
             }
             else
             {
+                Console.WriteLine("Author Search Results: ");
                 results.Display();
+                return true;
             }
         }
 
-        private void SearchBlogs(string tagName)
+        private bool SearchBlogs(string tagName)
         {
             SearchResults<Blog> results = _tagRepository.SearchBlogs(tagName);
 
             if (results.NoResultsFound)
             {
                 Console.WriteLine($"No results for {tagName}");
+                return false;
             }
             else
             {
+                Console.WriteLine("Blog Search Results: ");
                 results.Display();
+                return true;
             }
         }
 
-        private void SearchPosts(string tagName)
+        private bool SearchPosts(string tagName)
         {
             SearchResults<Post> results = _tagRepository.SearchPosts(tagName);
 
             if (results.NoResultsFound)
             {
                 Console.WriteLine($"No results for {tagName}");
+                return false;
             }
             else
             {
+                Console.WriteLine("Post Search Results: ");
                 results.Display();
+                return true;
             }
         }
 
         private void SearchAll(string tagName)
         {
-            Console.WriteLine("Author Results: ");
-            SearchAuthors(tagName);
-            Console.WriteLine("Blog Results: ");
-            SearchBlogs(tagName);
-            Console.WriteLine("Post Results: ");
-            SearchPosts(tagName);
+            
+            bool resultsFoundAuthors = SearchAuthors(tagName);
+            
+            bool resultsFoundBlogs = SearchBlogs(tagName);
+            
+            bool resultsFoundPosts = SearchPosts(tagName);
+            if (!resultsFoundAuthors && !resultsFoundBlogs && !resultsFoundPosts)
+            {
+                Console.WriteLine($"No results found for {tagName}.");
+            }
         }
     }
 }
