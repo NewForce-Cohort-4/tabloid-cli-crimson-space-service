@@ -42,12 +42,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     Console.WriteLine("Invalid Selection");
                     return this;
             }
-
-
-
          }
-
-
         public void DisplayOptions()
         {
 
@@ -60,7 +55,6 @@ namespace TabloidCLI.UserInterfaceManagers
 
             Console.Write("> ");
             string color = Console.ReadLine();
-
 
             if (color == "1")
             {
