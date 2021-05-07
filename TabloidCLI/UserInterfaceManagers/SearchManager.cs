@@ -16,6 +16,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            Console.WriteLine();
             Console.WriteLine("Search Menu");
             Console.WriteLine(" 1) Search Authors");
             Console.WriteLine(" 2) Search Blogs");
@@ -75,11 +76,11 @@ namespace TabloidCLI.UserInterfaceManagers
 
             if (results.NoResultsFound)
             {
-                
                 return false;
             }
             else
             {
+                Console.WriteLine();
                 Console.WriteLine("Author Search Results: ");
                 results.Display();
                 return true;
@@ -92,11 +93,11 @@ namespace TabloidCLI.UserInterfaceManagers
 
             if (results.NoResultsFound)
             {
-                Console.WriteLine($"No results for {tagName}");
                 return false;
             }
             else
             {
+                Console.WriteLine();
                 Console.WriteLine("Blog Search Results: ");
                 results.Display();
                 return true;
@@ -109,11 +110,11 @@ namespace TabloidCLI.UserInterfaceManagers
 
             if (results.NoResultsFound)
             {
-                Console.WriteLine($"No results for {tagName}");
                 return false;
             }
             else
             {
+                Console.WriteLine();
                 Console.WriteLine("Post Search Results: ");
                 results.Display();
                 return true;
@@ -130,6 +131,7 @@ namespace TabloidCLI.UserInterfaceManagers
             bool resultsFoundPosts = SearchPosts(tagName);
             if (!resultsFoundAuthors && !resultsFoundBlogs && !resultsFoundPosts)
             {
+                Console.WriteLine();
                 Console.WriteLine($"No results found for {tagName}.");
             }
         }

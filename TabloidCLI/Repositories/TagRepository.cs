@@ -128,6 +128,7 @@ namespace TabloidCLI
                     reader.Close();
 
                     return results;
+
                 }
             }
         }
