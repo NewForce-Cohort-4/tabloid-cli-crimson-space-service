@@ -298,5 +298,74 @@ namespace TabloidCLI
             }
         }
 
+
+
+
+            public List<Post> GetByBlog(int blogId)
+        {
+
+            using (SqlConnection conn = Connection)
+            {
+                // Note, we must Open() the connection, the "using" block doesn't do that for us.
+                conn.Open();
+                // We must "use" commands too.
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    // Here we setup the command with the SQL we want to execute before we execute it.
+                    cmd.CommandText = @"SELECT Post.Id, Post.Title, Post.URL, BlogId, Blog.Title
+                        FROM Post
+                        JOIN Blog on Post.BlogId = Blog.Id 
+                        WHERE Post.BlogId = @blogId";
+                    cmd.Parameters.AddWithValue("@blogId", blogId);
+                    // Execute the SQL in the database and get a "reader" that will give us access to the data.
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    // A list to hold the rooms we retrieve from the database.
+                    List<Post> postsByBlog = new List<Post>();
+                    // Read() will return true if there's more data to read
+                    while (reader.Read())
+                    {
+                        // The "ordinal" is the numeric position of the column in the query results.
+                        //  For our query, "Id" has an ordinal value of 0 and "Name" is 1.
+                        int idColumnPosition = reader.GetOrdinal("Id");
+                        int idValue = reader.GetInt32(idColumnPosition);
+
+                        int titleColumnPosition = reader.GetOrdinal("Title");
+                        string titleValue = reader.GetString(titleColumnPosition);
+
+                        int urlPosition = reader.GetOrdinal("URL");
+                        string urlValue = reader.GetString(urlPosition);
+
+                        int blogTitleColumnPosition = reader.GetOrdinal("Title");
+                        string blogValue = reader.GetString(blogTitleColumnPosition);
+
+                 
+
+
+                        // Now let's create a new room object using the data from the database.
+                        Post post = new Post
+                        {
+                            Id = idValue,
+                            Title = titleValue,
+                            Url = urlValue,
+ 
+                            Blog = new Blog()
+                            {
+                                Title = blogValue
+                            }
+                          
+
+                        };
+                        // ...and add that room object to our list.
+                       postsByBlog.Add(post);
+                    }
+                    // We should Close() the reader. Unfortunately, a "using" block won't work here.
+                    reader.Close();
+                    // Return the list of rooms who whomever called this method.
+                    return postsByBlog;
+                }
+            }
+        }
+
+
     }
 }

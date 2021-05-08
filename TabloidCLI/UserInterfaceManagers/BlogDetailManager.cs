@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TabloidCLI.Models;
 using TabloidCLI.Repositories;
+using Microsoft.Data.SqlClient;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
@@ -45,9 +46,9 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "3":
                     RemoveTag();
                     return this;
-                /*case "4":
+                case "4":
                     ViewBlogPosts();
-                    return this;*/
+                    return this;
                 case "0":
                     return _parentUI;
                 default:
@@ -120,6 +121,22 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine("Invalid Selection. Won't remove any tags.");
             }
         }
+
+   
+        private void ViewBlogPosts()
+        {
+            Console.WriteLine("Blog Posts");
+            List<Post> posts = _postRepository.GetByBlog(_blogId);
+            foreach (Post post in posts)
+            {
+               
+                Console.WriteLine(post.Title);
+
+            }
+            Console.WriteLine();
+        }
+    
+
 
     }
 }
