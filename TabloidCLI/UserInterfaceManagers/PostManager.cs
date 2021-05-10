@@ -83,7 +83,7 @@ namespace TabloidCLI.UserInterfaceManagers
         }
 
         // Define a Choose method which is used to engage the user in selecting a Post from the List of Posts in the database.
-        private Post Choose(string prompt = null)
+        public Post Choose(string prompt = null)
         {
             if (prompt == null)
             {

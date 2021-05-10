@@ -87,14 +87,16 @@ namespace TabloidCLI
                     cmd.Parameters.AddWithValue("@createDateTime", note.CreateDateTime);
                     cmd.Parameters.AddWithValue("@postId", note.Post.Id);
                     
-                    int id = (int)cmd.ExecuteScalar();
 
                     cmd.ExecuteNonQuery();
                 }
             }
         }
 
-        
+        public void Update (Note note)
+        {
+            throw new NotImplementedException();
+        }
 
         public void Delete(int id)
         {

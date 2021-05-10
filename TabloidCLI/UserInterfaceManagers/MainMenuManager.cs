@@ -4,7 +4,7 @@ namespace TabloidCLI.UserInterfaceManagers
 {
     public class MainMenuManager : IUserInterfaceManager
     {
-        private const string CONNECTION_STRING = 
+        private const string CONNECTION_STRING =
             //change to Express02 for Matt's local machine
             @"Data Source=localhost\SQLEXPRESS;Database=TabloidCLI;Integrated Security=True";
 
@@ -22,7 +22,6 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 5) Tag Management");
             Console.WriteLine(" 6) Search by Tag");
             Console.WriteLine(" 7) Display Options");
-            Console.WriteLine(" 8) Note Management");
             Console.WriteLine(" 0) Exit");
 
             Console.Write("> ");
@@ -35,8 +34,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "4": return new PostManager(this, CONNECTION_STRING);
                 case "5": return new TagManager(this, CONNECTION_STRING);
                 case "6": return new SearchManager(this, CONNECTION_STRING);
-                case "7": DisplayOptions();  return this;
-                case "8": return new NoteManager(this, CONNECTION_STRING);
+                case "7": DisplayOptions(); return this;
                 case "0":
                     Console.WriteLine("Good bye");
                     return null;
@@ -44,7 +42,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     Console.WriteLine("Invalid Selection");
                     return this;
             }
-         }
+        }
         public void DisplayOptions()
         {
 
