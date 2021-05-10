@@ -4,6 +4,7 @@ using System.Text;
 using TabloidCLI.Models;
 using TabloidCLI.Repositories;
 
+
 namespace TabloidCLI.UserInterfaceManagers
 {
     internal class PostDetailManager : IUserInterfaceManager
@@ -128,6 +129,8 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
+
+       
 
     }
 }
