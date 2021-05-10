@@ -15,6 +15,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private PostRepository _postRepository;
         private TagRepository _tagRepository;
         private int _postId;
+        private string _connectionString;
 
         // PostDetailManager Constructor method
         public PostDetailManager(IUserInterfaceManager parentUI, string connectionString, int postId)
@@ -24,6 +25,7 @@ namespace TabloidCLI.UserInterfaceManagers
             _postRepository = new PostRepository(connectionString);
             _tagRepository = new TagRepository(connectionString);
             _postId = postId;
+            _connectionString = connectionString;
         }
 
         public IUserInterfaceManager Execute()
@@ -51,8 +53,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     RemoveTag();
                     return this;
                 case "4":
-                    //NoteManagement;
-                    return this;
+                    return new NoteManager(this, _connectionString, post);
                 case "0":
                     return _parentUI;
                 default:
@@ -78,14 +79,14 @@ namespace TabloidCLI.UserInterfaceManagers
         private void AddTag()
         {
             Post post = _postRepository.Get(_postId);
-      
+
             Console.WriteLine($"Which tag would you like to add to {post.Title}?");
             List<Tag> tags = _tagRepository.GetAll();
 
             for (int i = 0; i < tags.Count; i++)
             {
                 Tag tag = tags[i];
-                Console.WriteLine($" {i + 1}) "+ tag);
+                Console.WriteLine($" {i + 1}) " + tag);
             }
             Console.Write("> ");
 
@@ -104,7 +105,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void RemoveTag()
         {
-           Post post  = _postRepository.Get(_postId);
+            Post post = _postRepository.Get(_postId);
 
             Console.WriteLine($"Which tag would you like to remove from {post.Title}?");
             List<Tag> tags = post.Tags;
