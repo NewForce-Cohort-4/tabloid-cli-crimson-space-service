@@ -39,7 +39,6 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "2":
                     Add();
                     return this;
-                
                 case "3":
                     Remove();
                     return this;
@@ -64,7 +63,7 @@ namespace TabloidCLI.UserInterfaceManagers
         {
             if (prompt == null)
             {
-                prompt = "Please choose an Note:";
+                prompt = "Please choose a Note:";
             }
 
             Console.WriteLine(prompt);
@@ -104,17 +103,11 @@ namespace TabloidCLI.UserInterfaceManagers
             note.Content = Console.ReadLine();
 
             note.CreateDateTime = DateTime.Now;
-
             
             note.Post = _post;
 
-            
-
-
             _noteRepository.Insert(note);
         }
-
-        
 
         private void Remove()
         {
