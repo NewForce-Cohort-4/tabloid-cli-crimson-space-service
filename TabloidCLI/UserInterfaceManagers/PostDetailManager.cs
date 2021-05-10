@@ -4,6 +4,7 @@ using System.Text;
 using TabloidCLI.Models;
 using TabloidCLI.Repositories;
 
+
 namespace TabloidCLI.UserInterfaceManagers
 {
     internal class PostDetailManager : IUserInterfaceManager
@@ -52,7 +53,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     RemoveTag();
                     return this;
                 case "4":
-                    return new NoteManager(this, _connectionString, post.Id);
+                    return new NoteManager(this, _connectionString, post);
                 case "0":
                     return _parentUI;
                 default:
@@ -78,14 +79,14 @@ namespace TabloidCLI.UserInterfaceManagers
         private void AddTag()
         {
             Post post = _postRepository.Get(_postId);
-      
+
             Console.WriteLine($"Which tag would you like to add to {post.Title}?");
             List<Tag> tags = _tagRepository.GetAll();
 
             for (int i = 0; i < tags.Count; i++)
             {
                 Tag tag = tags[i];
-                Console.WriteLine($" {i + 1}) "+ tag);
+                Console.WriteLine($" {i + 1}) " + tag);
             }
             Console.Write("> ");
 
@@ -104,7 +105,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void RemoveTag()
         {
-           Post post  = _postRepository.Get(_postId);
+            Post post = _postRepository.Get(_postId);
 
             Console.WriteLine($"Which tag would you like to remove from {post.Title}?");
             List<Tag> tags = post.Tags;

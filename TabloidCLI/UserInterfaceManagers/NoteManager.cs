@@ -8,15 +8,17 @@ namespace TabloidCLI.UserInterfaceManagers
     {
         private readonly IUserInterfaceManager _parentUI;
         private NoteRepository _noteRepository;
+        private PostManager _postManager;
         private string _connectionString;
-        private int _postId;
+        private Post _post;
 
-        public NoteManager(IUserInterfaceManager parentUI, string connectionString, int postId)
+        public NoteManager(IUserInterfaceManager parentUI, string connectionString, Post post)
         {
             _parentUI = parentUI;
             _noteRepository = new NoteRepository(connectionString);
+            _postManager = new PostManager(parentUI, connectionString);
             _connectionString = connectionString;
-            _postId = postId;
+            _post = post;
         }
 
         public IUserInterfaceManager Execute()
@@ -88,6 +90,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
+        //creating my object to insert into the database through the noterepository
         private void Add()
         {
             Console.WriteLine("New Note");
@@ -101,10 +104,11 @@ namespace TabloidCLI.UserInterfaceManagers
 
             note.CreateDateTime = DateTime.Now;
 
-            note.Post = new Post()
-            {
+            
+            note.Post = _post;
 
-            };
+            
+
 
             _noteRepository.Insert(note);
         }
