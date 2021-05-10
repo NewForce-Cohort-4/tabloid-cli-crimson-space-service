@@ -44,13 +44,13 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
-                    View();
+                    View(post);
                     return this;
                 case "2":
-                    AddTag();
+                    AddTag(post);
                     return this;
                 case "3":
-                    RemoveTag();
+                    RemoveTag(post);
                     return this;
                 case "4":
                     return new NoteManager(this, _connectionString, post);
@@ -62,9 +62,8 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        private void View()
+        private void View(Post post)
         {
-            Post post = _postRepository.Get(_postId);
             Console.WriteLine();
             Console.WriteLine($"Title: {post.Title}");
             Console.WriteLine($"URL: {post.Url}");
@@ -76,9 +75,8 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine();
         }
 
-        private void AddTag()
+        private void AddTag(Post post)
         {
-            Post post = _postRepository.Get(_postId);
 
             Console.WriteLine($"Which tag would you like to add to {post.Title}?");
             List<Tag> tags = _tagRepository.GetAll();
@@ -103,9 +101,8 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        private void RemoveTag()
+        private void RemoveTag(Post post)
         {
-            Post post = _postRepository.Get(_postId);
 
             Console.WriteLine($"Which tag would you like to remove from {post.Title}?");
             List<Tag> tags = post.Tags;

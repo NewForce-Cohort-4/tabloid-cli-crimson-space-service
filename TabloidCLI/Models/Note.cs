@@ -15,5 +15,10 @@ namespace TabloidCLI.Models
         public Post Post { get; set; }
 
         public List<Note> Notes { get; set; } = new List<Note>();
+
+        public override string ToString()
+        {
+            return $"{Title} ({CreateDateTime}): {Content}";
+        }
     }
 }

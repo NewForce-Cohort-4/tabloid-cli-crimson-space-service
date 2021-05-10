@@ -34,11 +34,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "4": return new PostManager(this, CONNECTION_STRING);
                 case "5": return new TagManager(this, CONNECTION_STRING);
                 case "6": return new SearchManager(this, CONNECTION_STRING);
-<<<<<<< HEAD
                 case "7": DisplayOptions();  return this;
-=======
-                case "7": DisplayOptions(); return this;
->>>>>>> main
                 case "0":
                     Console.WriteLine("Good bye");
                     return null;
